@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 17:20:38 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/26 17:21:00 by aholster      ########   odam.nl         */
+/*   Updated: 2019/07/26 22:03:58 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	main(void)
 {
-	long double num;
+	long double		num;
 
 	printf("sizeof t_float %zu\n", sizeof(t_float));
 	printf("sizeof long double %zu\n", sizeof(long double));
-	printf("sizeof t_mathlst %zu\n", sizeof(t_mathlst));
+	printf("sizeof t_mathlst %zu\n", sizeof(t_numlst));
 
 	num = -1.0;
 	longdouble_analyse(num);
@@ -28,7 +28,7 @@ int	main(void)
 	longdouble_analyse(num);
 	num = -0.5;
 	longdouble_analyse(num);
-	
+
 	num = LDBL_MAX;
 	longdouble_analyse(num);
 	num = LDBL_MIN;
@@ -36,9 +36,9 @@ int	main(void)
 
 	num = 0.0;
 	longdouble_analyse(num);
-	num = 0.0/0.0;
+	num = 0.0 / 0.0;
 	longdouble_analyse(num);
-	num = 1.0/0.0;
+	num = 1.0 / 0.0;
 	longdouble_analyse(num);
 
 	num = 8.0;

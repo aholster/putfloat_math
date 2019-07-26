@@ -6,7 +6,7 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/07/26 21:45:52 by aholster      ########   odam.nl          #
+#    Updated: 2019/07/26 22:14:37 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME := test
 
 NORM := norminette $(FILEC) $(HEAD) | grep -e "Error"  -e "Warning" -B 1
 
-CC := gcc -Wall -Werror -Wextra -I ./libft/ -L ./libft -lft
+CC := gcc -Wall -Werror -Wextra -I ./libft/ -L ./libft/ -lft
 
 all: $(NAME)
 
@@ -30,17 +30,20 @@ assemble:
 	@$(CC) -o $(NAME) $(FILEC)
 
 $(NAME):
+	@make -C ./libft/
 	@echo "\033[0;33mStarting assembly of $(NAME)…\033[0;00m"
 	@time make assemble
 	@echo "\033[0;32m$(NAME) successfully assembled!\033[0;00m\n"
 
 clean:
+#	@make clean -C ./libft/
 	@echo "\033[0;33mInitializing Summary Deletions...\033[0;00m"
 	@find "./" -type f \( -name '*~' -o -name '\#*\#' -o -name '.DS_Store' \)\
 	 -exec rm -rfv {} \;
 	@echo "\033[0;31m	Executed!\033[0;00m\n"
 
 fclean: clean
+#	@make fclean -C ./libft/
 	@rm -rf $(NAME)
 	@echo "\033[0;31mObituary of $(NAME): Deceased on $(shell date).\
 	\033[0;00m\n"

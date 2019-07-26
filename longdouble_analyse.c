@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:45:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/26 19:44:56 by aholster      ########   odam.nl         */
+/*   Updated: 2019/07/26 22:09:41 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ static void	put_annotation(unsigned short mexponent, long double input)
 	printf(" Float:\t%Le\n", input);
 	printf(" Raw exponent: %hu, Bias adjusted exponent: %d\n",\
 	mexponent, mexponent - 16383);
-	floatret = custom_ld_to_text(input);
+	floatret = ft_custom_ld_to_text(input);
 	printf(" Our Float Returns:\t%.3s\n", floatret);
-//	printf(" Norm Float:\t%Lf\n", input);
+/*
+**	printf(" Norm Float:\t%Lf\n", input);
+*/
 	printf("\n");
 }
 
-void	longdouble_analyse(long double input)
+void		longdouble_analyse(long double input)
 {
 	t_float			num;
 	size_t			index;
@@ -47,7 +49,7 @@ void	longdouble_analyse(long double input)
 		while (subdex > 0)
 		{
 			subdex--;
-			if (((num.byte[index] >> subdex) & 1 ) == 1)
+			if (((num.byte[index] >> subdex) & 1) == 1)
 				write(1, "1", 1);
 			else
 				write(1, "0", 1);
