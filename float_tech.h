@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/28 18:40:11 by aholster      ########   odam.nl         */
+/*   Updated: 2019/07/28 20:56:53 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef union			u_float
 {
 	long double			ld;
 	unsigned short		byte[5];
+	unsigned long long	llu;
 }						t_float;
 
 // typedef struct			s_mathlst

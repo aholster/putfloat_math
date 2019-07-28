@@ -6,14 +6,15 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/07/28 18:42:27 by aholster      ########   odam.nl          #
+#    Updated: 2019/07/28 20:43:21 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 DATE := $(shell date)
 
 SOURCE := main longdouble_analyse ft_custom_ld_to_text ft_numlst_del ft_numlst_to_str\
- ft_numlst_new ft_lst_math_add ft_numlst_len ft_numlst_postfix ft_numlst_prefix
+ ft_numlst_new  ft_numlst_len ft_numlst_postfix ft_numlst_prefix\
+ ft_lst_math_div ft_lst_math_mul ft_lst_math_pow ft_lst_math_add
 
 FILEC := $(SOURCE:%=./%.c)
 
