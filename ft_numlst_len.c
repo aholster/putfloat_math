@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_numlst_del.c                                    :+:    :+:            */
+/*   ft_numlst_len.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/26 21:34:18 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/27 19:02:26 by aholster      ########   odam.nl         */
+/*   Created: 2019/07/28 17:49:59 by aholster       #+#    #+#                */
+/*   Updated: 2019/07/28 17:50:34 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-void		ft_numlst_del(t_numlst **alst)
+size_t			ft_numlst_len(t_numlst *lst)
 {
-	t_numlst	*trail;
-	t_numlst	*iterator;
+	size_t	len;
 
-	if (alst != NULL)
+	len = 0;
+	while (lst != NULL)
 	{
-		iterator = *alst;
-		while (iterator != NULL)
-		{
-			trail = iterator;
-			iterator = iterator->next;
-			free(trail->mem);
-			trail->mem_size = 0;
-			free(trail);
-		}
-		*alst = NULL;
+		lst = lst->next;
+		len++;
 	}
+	return (len);
 }

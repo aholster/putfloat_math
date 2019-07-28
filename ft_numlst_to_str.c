@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 21:33:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/26 22:23:11 by aholster      ########   odam.nl         */
+/*   Updated: 2019/07/26 22:26:44 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int				ft_numlst_to_str(char **str, t_numlst *lst)
 		len += lst->mem_size;
 		lst = lst->next;
 	}
+	printf("float internal text:|%s| %zu characters\n", *str, len);
 	return (1);
 }

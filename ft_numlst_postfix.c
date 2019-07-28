@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_numlst_del.c                                    :+:    :+:            */
+/*   ft_numlst_postfix.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/26 21:34:18 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/27 19:02:26 by aholster      ########   odam.nl         */
+/*   Created: 2019/07/28 17:59:50 by aholster       #+#    #+#                */
+/*   Updated: 2019/07/28 18:13:55 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-void		ft_numlst_del(t_numlst **alst)
+int		ft_numlst_postfix(t_numlst *lst, unsigned short count)
 {
-	t_numlst	*trail;
-	t_numlst	*iterator;
+	unsigned short	added;
+	t_numlst		*new;
 
-	if (alst != NULL)
+	added = 0;
+	while (lst->next != NULL)
+		lst = lst->next;
+	while (added < count)
 	{
-		iterator = *alst;
-		while (iterator != NULL)
-		{
-			trail = iterator;
-			iterator = iterator->next;
-			free(trail->mem);
-			trail->mem_size = 0;
-			free(trail);
-		}
-		*alst = NULL;
+		new = ft_numlst_new();
+		if (new == NULL)
+			return (0);
+		lst->next = new;
+		lst = new;
+		added++;
 	}
+	return (1);
 }

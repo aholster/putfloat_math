@@ -6,13 +6,14 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/07/26 22:14:37 by aholster      ########   odam.nl          #
+#    Updated: 2019/07/28 18:42:27 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 DATE := $(shell date)
 
-SOURCE := main longdouble_analyse ft_custom_ld_to_text ft_numlst_del ft_numlst_to_str
+SOURCE := main longdouble_analyse ft_custom_ld_to_text ft_numlst_del ft_numlst_to_str\
+ ft_numlst_new ft_lst_math_add ft_numlst_len ft_numlst_postfix ft_numlst_prefix
 
 FILEC := $(SOURCE:%=./%.c)
 
@@ -22,7 +23,7 @@ NAME := test
 
 NORM := norminette $(FILEC) $(HEAD) | grep -e "Error"  -e "Warning" -B 1
 
-CC := gcc -Wall -Werror -Wextra -I ./libft/ -L ./libft/ -lft
+CC := gcc -Wall -Werror -Wextra -g -I ./libft/ -L ./libft/ -lft
 
 all: $(NAME)
 

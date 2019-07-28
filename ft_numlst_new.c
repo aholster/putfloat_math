@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_numlst_del.c                                    :+:    :+:            */
+/*   ft_numlst_new.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/26 21:34:18 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/27 19:02:26 by aholster      ########   odam.nl         */
+/*   Created: 2019/07/27 18:24:47 by aholster       #+#    #+#                */
+/*   Updated: 2019/07/28 18:11:29 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-void		ft_numlst_del(t_numlst **alst)
+t_numlst	*ft_numlst_new(void)
 {
-	t_numlst	*trail;
-	t_numlst	*iterator;
+	t_numlst	*node;
 
-	if (alst != NULL)
+	node = (t_numlst *)malloc(sizeof(t_numlst));
+	if (node == NULL)
+		return (NULL);
+	node->mem = (char *)malloc(sizeof(char) * LSTBUF_SIZE);
+	if (node->mem == NULL)
 	{
-		iterator = *alst;
-		while (iterator != NULL)
-		{
-			trail = iterator;
-			iterator = iterator->next;
-			free(trail->mem);
-			trail->mem_size = 0;
-			free(trail);
-		}
-		*alst = NULL;
+		free(node);
+		return (NULL);
 	}
+	ft_memset(node->mem, '0', LSTBUF_SIZE);
+	node->mem_size = LSTBUF_SIZE;
+	node->next = NULL;
+	return (node);
 }

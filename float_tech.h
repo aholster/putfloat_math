@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/26 22:05:07 by aholster      ########   odam.nl         */
+/*   Updated: 2019/07/28 18:40:11 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ typedef union			u_float
 // 	struct s_mathlst	*prev;
 // }						t_mathlst;
 
-# define LSTBUF_SIZE 16
+# define LSTBUF_SIZE 1
+
+/*
+**	LSTBUF_SIZE DOES NOT SUPPORT THE VALUE OF 3, OR 0
+*/
 
 typedef	struct			s_numlst
 {
@@ -40,13 +44,22 @@ typedef	struct			s_numlst
 	size_t				mem_size;
 //	unsigned			decimal:1;
 	struct s_numlst		*next;
+	struct s_numlst		*prev;
 }						t_numlst;
 
 void					longdouble_analyse(long double input);
 char					*ft_custom_ld_to_text(long double input);
 
+
 int						ft_numlst_to_str(char **str, t_numlst *lst);
 
 void					ft_numlst_del(t_numlst **alst);
+size_t					ft_numlst_len(t_numlst *lst);
+t_numlst				*ft_numlst_new(void);
+
+int						ft_numlst_prefix(t_numlst **alst, unsigned short count);
+int						ft_numlst_postfix(t_numlst *lst, unsigned short count);
+
+int						ft_lst_math_add(t_numlst **source, t_numlst *addition);
 
 #endif
