@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/27 18:24:47 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/28 18:11:29 by aholster      ########   odam.nl         */
+/*   Updated: 2019/07/28 19:30:17 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ t_numlst	*ft_numlst_new(void)
 	ft_memset(node->mem, '0', LSTBUF_SIZE);
 	node->mem_size = LSTBUF_SIZE;
 	node->next = NULL;
+	node->prev = NULL;
 	return (node);
 }

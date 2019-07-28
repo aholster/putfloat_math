@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/28 17:59:50 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/28 18:13:55 by aholster      ########   odam.nl         */
+/*   Updated: 2019/07/28 19:29:10 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ int		ft_numlst_postfix(t_numlst *lst, unsigned short count)
 		if (new == NULL)
 			return (0);
 		lst->next = new;
+
+		new->prev = lst;
+		
 		lst = new;
 		added++;
 	}

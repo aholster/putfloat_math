@@ -6,11 +6,20 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 19:00:45 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/28 19:03:21 by aholster      ########   odam.nl         */
+/*   Updated: 2019/07/28 20:37:34 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
+
+static void		ft_numlst_end(t_numlst **srclow, t_numlst **addlow)
+{
+	while ((*addlow)->next != NULL)
+	{
+		*addlow = (*addlow)->next;
+		*srclow = (*srclow)->next;
+	}
+}
 
 static int		ft_numlst_finddec(t_numlst *lst)
 {
@@ -26,6 +35,13 @@ static int		ft_numlst_finddec(t_numlst *lst)
 	}
 	return (-1);
 }
+
+/*
+**	welcome to the most obtuse function!
+**	ft_lstlen is supposed to create the necesary structs to allow for simpler addition logic
+** ie, making sure that 'source' is at least as big as 'target',
+**	in both directions from decimal point
+*/
 
 static int		ft_lstlen_match(t_numlst **source, t_numlst *target)
 {
@@ -56,13 +72,39 @@ static int		ft_lstlen_match(t_numlst **source, t_numlst *target)
 
 int				ft_lst_math_add(t_numlst **source, t_numlst *addition)
 {
+	t_numlst	*srclow;
+	t_numlst	*addlow;
+	size_t		index;
+	char		cache;
+
 	if (ft_lstlen_match(source, addition) == 0)
 		return (0);
-	while ()
+	srclow = *source;
+	addlow = addition;
+	ft_numlst_end(&srclow, &addlow);
+	while (addlow != NULL)
 	{
-
+		index = addlow->mem_size;
+// presumably subfunc this up
+		while (index != 0)
+		{
+			index--;
+			if (addlow->mem[index] == '.')
+				continue;
+			cache = (addlow->mem[index] - '0') + (srclow->mem[index] - '0');
+			if (cache > 9)
+			{
+				srclow->mem[index] = (cache % 10) + '0';
+				cache -= (cache % 10);
+				//trigger numerical addition to next character
+			}
+			else
+				srclow->mem[index] = cache + '0';
+		}
+//end of subfunc
+		srclow = srclow->prev;
+		addlow = addlow->prev;
 	}
-
-//	ft_numlst_trim();
+//	ft_numlst_trim(source); trim list from mathematically useless structs
 	return (1);
 }
