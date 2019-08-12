@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 21:33:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/01 19:46:42 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/12 13:18:50 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int				ft_numlst_to_str(char **str, t_numlst *lst)
 		len += traveler->mem_size;
 		traveler = traveler->next;
 	}
+	printf("proceeding to malloc: %zu bytes\n", len + 1);
 	*str = (char *)malloc(sizeof(char) * len + 1);
 	if (*str == NULL)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/12 13:05:00 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/12 18:02:46 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef union			u_float
 typedef	struct		s_numlst
 {
 	char				*mem;
-	int					mem_size;
+	size_t				mem_size;
 	struct s_numlst		*next;
 	struct s_numlst		*prev;
 }						t_numlst;
@@ -63,5 +63,6 @@ int						ft_numlst_prefix(t_numlst *dec_lst, unsigned short count);
 int						ft_numlst_postfix(t_numlst *dec_lst, unsigned short count);
 
 int						ft_lst_math_add(t_numlst *source, t_numlst *addition);
+int						ft_lst_math_mul(t_numlst **source, unsigned short multiplier);
 
 #endif

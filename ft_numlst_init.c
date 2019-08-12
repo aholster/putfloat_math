@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_numlst_init.c                                    :+:    :+:            */
+/*   ft_numlst_init.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 11:58:30 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/12 12:04:40 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/12 18:17:59 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_numlst				*ft_numlst_init(void)
 		free(node);
 		return (NULL);
 	}
-//	node->mem = (char[3]){'0', '.', '0'};
 	node->mem[0] = '0';
 	node->mem[1] = '.';
 	node->mem[2] = '0';

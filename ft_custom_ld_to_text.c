@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 17:50:52 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/12 12:05:48 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/12 13:53:13 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static unsigned long long	ft_llurev(unsigned long long num)
 {
-    unsigned char		count;
+    unsigned char		counter;
     unsigned long long	reverse_num;
 
-	count = 63;
+	counter = 63;
 	reverse_num = num;
     num >>= 1;
     while (num != 0)
@@ -25,10 +25,10 @@ static unsigned long long	ft_llurev(unsigned long long num)
        reverse_num <<= 1;
        reverse_num |= (num & 1);
        num >>= 1;
-       count--;
+       counter--;
     }
-    reverse_num <<= count;
-    return (reverse_num); 
+    reverse_num <<= counter;
+    return (reverse_num);
 }
 
 char						*ft_custom_ld_to_text(long double input)

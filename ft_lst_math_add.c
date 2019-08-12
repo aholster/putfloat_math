@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 19:00:45 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/12 13:03:34 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/12 15:55:30 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ static int		ft_lstlen_match(t_numlst *source, t_numlst *target)
 	return (1);
 }
 
-static int 		ft_numlst_addcarry(t_numlst *cur, int index)
+static int 		ft_numlst_addcarry(t_numlst *cur, size_t index)
 {
 	char	*txt;
 
 	txt = cur->mem;
 	while (index > 0)
 	{
+		index--;
 		if (txt[index] == '.')
 			continue;
 		if (txt[index] == '9')
@@ -51,18 +52,17 @@ static int 		ft_numlst_addcarry(t_numlst *cur, int index)
 			txt[index]++;
 			return (1);
 		}
-		index--;
 	}
 	if (cur->prev == NULL)
 		if (ft_numlst_prefix(cur, 1) == -1)
 			return (-1);
-	return (ft_numlst_addcarry(cur->prev, cur->mem_size));
+	return (ft_numlst_addcarry(cur->prev, cur->prev->mem_size));
 }
 
 static int		ft_add_structhandler(t_numlst *addto, t_numlst *addant)
 {
-	unsigned char		cache;
-	size_t				index;
+	unsigned char	cache;
+	size_t			index;
 
 	index = addant->mem_size;
 	while (index > 0)
@@ -75,7 +75,7 @@ static int		ft_add_structhandler(t_numlst *addto, t_numlst *addant)
 		{
 			cache -= 10;
 			addto->mem[index] = cache + '0';
-			if (ft_numlst_addcarry(addto, index) == -1)
+			if (ft_numlst_addcarry(addto, index - 1) == -1)
 				return (-1);
 		}
 		else
