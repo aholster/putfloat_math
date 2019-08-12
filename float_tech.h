@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/28 20:56:53 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/12 13:05:00 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,13 @@ typedef union			u_float
 # define LSTBUF_SIZE 1
 
 /*
-**	LSTBUF_SIZE DOES NOT SUPPORT THE VALUE OF 3, OR 0
+**	LSTBUF_SIZE DOES NOT SUPPORT THE VALUE OF 3, OR smaller than 1
 */
 
-typedef	struct			s_numlst
+typedef	struct		s_numlst
 {
 	char				*mem;
-	size_t				mem_size;
-//	unsigned			decimal:1;
+	int					mem_size;
 	struct s_numlst		*next;
 	struct s_numlst		*prev;
 }						t_numlst;
@@ -55,12 +54,14 @@ char					*ft_custom_ld_to_text(long double input);
 int						ft_numlst_to_str(char **str, t_numlst *lst);
 
 void					ft_numlst_del(t_numlst **alst);
-size_t					ft_numlst_len(t_numlst *lst);
-t_numlst				*ft_numlst_new(void);
+size_t					ft_numlst_fwlen(t_numlst *dec_lst);
+size_t					ft_numlst_bwlen(t_numlst *dec_lst);
+t_numlst				*ft_numlst_newnode(void);
+t_numlst				*ft_numlst_init(void);
 
-int						ft_numlst_prefix(t_numlst **alst, unsigned short count);
-int						ft_numlst_postfix(t_numlst *lst, unsigned short count);
+int						ft_numlst_prefix(t_numlst *dec_lst, unsigned short count);
+int						ft_numlst_postfix(t_numlst *dec_lst, unsigned short count);
 
-int						ft_lst_math_add(t_numlst **source, t_numlst *addition);
+int						ft_lst_math_add(t_numlst *source, t_numlst *addition);
 
 #endif

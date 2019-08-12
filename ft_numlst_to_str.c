@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 21:33:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/26 22:26:44 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/01 19:46:42 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int				ft_numlst_to_str(char **str, t_numlst *lst)
 	t_numlst	*traveler;
 
 	len = 0;
+	while (lst->prev != NULL)
+		lst = lst->prev;
 	traveler = lst;
 	while (traveler != NULL)
 	{
@@ -26,7 +28,7 @@ int				ft_numlst_to_str(char **str, t_numlst *lst)
 	}
 	*str = (char *)malloc(sizeof(char) * len + 1);
 	if (*str == NULL)
-		return (0);
+		return (-1);
 	(*str)[len] = '\0';
 	len = 0;
 	while (lst != NULL)

@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 21:34:18 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/27 19:02:26 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/12 12:26:45 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ void		ft_numlst_del(t_numlst **alst)
 
 	if (alst != NULL)
 	{
+		iterator = (*alst)->prev;
+		while (iterator != NULL)
+		{
+			trail = iterator;
+			iterator = iterator->prev;
+			free(trail->mem);
+			trail->mem_size = 0;
+			free(trail);
+		}
 		iterator = *alst;
 		while (iterator != NULL)
 		{

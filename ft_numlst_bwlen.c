@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_numlst_new.c                                    :+:    :+:            */
+/*   ft_numlst_bwlen.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/27 18:24:47 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/28 19:30:17 by aholster      ########   odam.nl         */
+/*   Created: 2019/08/01 19:50:20 by aholster       #+#    #+#                */
+/*   Updated: 2019/08/01 20:18:57 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-t_numlst	*ft_numlst_new(void)
+size_t			ft_numlst_bwlen(t_numlst *dec_lst)
 {
-	t_numlst	*node;
+	size_t		len;
+	t_numlst	*lst;
 
-	node = (t_numlst *)malloc(sizeof(t_numlst));
-	if (node == NULL)
-		return (NULL);
-	node->mem = (char *)malloc(sizeof(char) * LSTBUF_SIZE);
-	if (node->mem == NULL)
+	len = 0;
+	lst = dec_lst;
+	while (lst != NULL)
 	{
-		free(node);
-		return (NULL);
+		lst = lst->prev;
+		len++;
 	}
-	ft_memset(node->mem, '0', LSTBUF_SIZE);
-	node->mem_size = LSTBUF_SIZE;
-	node->next = NULL;
-	node->prev = NULL;
-	return (node);
+	return (len);
 }

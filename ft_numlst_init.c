@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_numlst_postfix.c                                :+:    :+:            */
+/*   ft_numlst_init.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/28 17:59:50 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/12 11:10:25 by aholster      ########   odam.nl         */
+/*   Created: 2019/08/12 11:58:30 by aholster       #+#    #+#                */
+/*   Updated: 2019/08/12 12:04:40 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-int		ft_numlst_postfix(t_numlst *dec_lst, unsigned short count)
+t_numlst				*ft_numlst_init(void)
 {
-	unsigned short	added;
-	t_numlst		*new;
+	t_numlst	*node;
 
-	added = 0;
-	while (dec_lst->next != NULL)
-		dec_lst = dec_lst->next;
-	while (added < count)
+	node = (t_numlst *)malloc(sizeof(t_numlst));
+	if (node == NULL)
+		return (NULL);
+	node->mem = (char *)malloc(sizeof(char) * 3);
+	if (node->mem == NULL)
 	{
-		new = ft_numlst_newnode();
-		if (new == NULL)
-			return (-1);
-		dec_lst->next = new;
-		new->prev = dec_lst;
-		dec_lst = new;
-		added++;
+		free(node);
+		return (NULL);
 	}
-	return (1);
+//	node->mem = (char[3]){'0', '.', '0'};
+	node->mem[0] = '0';
+	node->mem[1] = '.';
+	node->mem[2] = '0';
+	node->mem_size = 3;
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
 }

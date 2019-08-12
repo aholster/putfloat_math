@@ -6,105 +6,104 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 19:00:45 by aholster       #+#    #+#                */
-/*   Updated: 2019/07/28 20:38:26 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/12 13:03:34 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-static void		ft_numlst_end(t_numlst **srclow, t_numlst **addlow)
-{
-	while ((*addlow)->next != NULL)
-	{
-		*addlow = (*addlow)->next;
-		*srclow = (*srclow)->next;
-	}
-}
-
-static int		ft_numlst_finddec(t_numlst *lst)
-{
-	size_t	len;
-
-	len = 0;
-	while (lst != NULL)
-	{
-		len++;
-		if (lst->mem_size == 3)
-			return (len);
-		lst = lst->next;
-	}
-	return (-1);
-}
-
-/*
-**	welcome to the most obtuse function!
-**	ft_lstlen is supposed to create the necesary structs to allow for simpler addition logic
-** ie, making sure that 'source' is at least as big as 'target',
-**	in both directions from decimal point
-*/
-
-static int		ft_lstlen_match(t_numlst **source, t_numlst *target)
+static int		ft_lstlen_match(t_numlst *source, t_numlst *target)
 {
 	size_t	srclen;
-	int		srczero;
 	size_t	tarlen;
-	int		tarzero;
 
-	srclen = ft_numlst_len(*source);
-	srczero = ft_numlst_finddec(*source);
-	tarlen = ft_numlst_len(target);
-	tarzero = ft_numlst_finddec(target);
-	if (tarzero > srczero)
-	{
-		if (ft_numlst_prefix(source, tarzero - srczero) == 0)
-			return (0);
-		srclen += tarzero - srczero;
-		srczero += tarzero - srczero;
-	}
+	srclen = ft_numlst_fwlen(source);
+	tarlen = ft_numlst_fwlen(target);
 	if (tarlen > srclen)
 	{
-		if (ft_numlst_postfix(*source, tarlen - srclen) == 0)
-			return (0);
+		if (ft_numlst_postfix(source, tarlen - srclen) == 0)
+			return (-1);
 		srclen += tarlen - srclen;
+	}
+	srclen = ft_numlst_bwlen(source);
+	tarlen = ft_numlst_bwlen(target);
+	if (tarlen > srclen)
+	{
+		if (ft_numlst_prefix(source, tarlen - srclen) == 0)
+			return (-1);
 	}
 	return (1);
 }
 
-int				ft_lst_math_add(t_numlst **source, t_numlst *addition)
+static int 		ft_numlst_addcarry(t_numlst *cur, int index)
+{
+	char	*txt;
+
+	txt = cur->mem;
+	while (index > 0)
+	{
+		if (txt[index] == '.')
+			continue;
+		if (txt[index] == '9')
+			txt[index] = '0';
+		else
+		{
+			txt[index]++;
+			return (1);
+		}
+		index--;
+	}
+	if (cur->prev == NULL)
+		if (ft_numlst_prefix(cur, 1) == -1)
+			return (-1);
+	return (ft_numlst_addcarry(cur->prev, cur->mem_size));
+}
+
+static int		ft_add_structhandler(t_numlst *addto, t_numlst *addant)
+{
+	unsigned char		cache;
+	size_t				index;
+
+	index = addant->mem_size;
+	while (index > 0)
+	{
+		index--;
+		if (addant->mem[index] == '.')
+			continue;
+		cache = (addant->mem[index] - '0') + (addto->mem[index] - '0');
+		if (cache > 9)
+		{
+			cache -= 10;
+			addto->mem[index] = cache + '0';
+			if (ft_numlst_addcarry(addto, index) == -1)
+				return (-1);
+		}
+		else
+			addto->mem[index] = cache + '0';
+	}
+	return (1);
+}
+
+int				ft_lst_math_add(t_numlst *source, t_numlst *addition)
 {
 	t_numlst	*srclow;
 	t_numlst	*addlow;
-	size_t		index;
-	char		cache;
 
-	if (ft_lstlen_match(source, addition) == 0)
-		return (0);
-	srclow = *source;
+	if (ft_lstlen_match(source, addition) == -1)
+		return (-1);
+	srclow = source;
 	addlow = addition;
-	ft_numlst_end(&srclow, &addlow);
+	while (addlow->next != NULL)
+	{
+		addlow = addlow->next;
+		srclow = srclow->next;
+	}
 	while (addlow != NULL)
 	{
-		index = addlow->mem_size;
-// presumably subfunc this up
-		while (index != 0)
-		{
-			index--;
-			if (addlow->mem[index] == '.')
-				continue;
-			cache = (addlow->mem[index] - '0') + (srclow->mem[index] - '0');
-			if (cache > 9)
-			{
-				srclow->mem[index] = (cache % 10) + '0';
-				cache -= (cache % 10);
-				//trigger numerical addition to next character
-			}
-			else
-				srclow->mem[index] = cache + '0';
-		}
-//end of subfunc
+		if (ft_add_structhandler(srclow, addlow) == -1)
+			return (-1);
 		srclow = srclow->prev;
 		addlow = addlow->prev;
 	}
-//	ft_numlst_trim(source); trim list from mathematically useless structs
 	return (1);
 }

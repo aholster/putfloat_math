@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_numlst_len.c                                    :+:    :+:            */
+/*   ft_numlst_fwlen.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -12,11 +12,13 @@
 
 #include "float_tech.h"
 
-size_t			ft_numlst_len(t_numlst *lst)
+size_t			ft_numlst_fwlen(t_numlst *dec_lst)
 {
-	size_t	len;
+	size_t		len;
+	t_numlst	*lst;
 
 	len = 0;
+	lst = dec_lst;
 	while (lst != NULL)
 	{
 		lst = lst->next;
