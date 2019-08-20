@@ -6,21 +6,22 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/08/12 18:21:00 by aholster      ########   odam.nl          #
+#    Updated: 2019/08/16 18:28:19 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 DATE := $(shell date)
 
-SOURCE := main longdouble_analyse ft_custom_ld_to_text ft_numlst_del ft_numlst_to_str\
- ft_numlst_newnode  ft_numlst_fwlen ft_numlst_bwlen ft_numlst_postfix ft_numlst_prefix\
- ft_lst_math_div ft_lst_math_mul ft_lst_math_add ft_numlst_init
+SOURCE := custom_ld_to_text numlst_del numlst_to_str\
+ numlst_newnode  numlst_fwlen numlst_bwlen numlst_postfix numlst_prefix\
+ lst_math_div lst_math_mul lst_math_add numlst_init numlst_minsize\
+ numlst_up_magni numlst_copy
 
-FILEC := $(SOURCE:%=./%.c)
+FILEC := $(SOURCE:%=./ft_%.c) main.c longdouble_analyse.c
 
 HEAD := float_tech.h
 
-NAME := test
+NAME := float_tech
 
 NORM := norminette $(FILEC) $(HEAD) | grep -e "Error"  -e "Warning" -B 1
 

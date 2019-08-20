@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_numlst_prefix.c                                 :+:    :+:            */
+/*   ft_numlst_minsize.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/28 18:00:02 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/16 16:08:20 by aholster      ########   odam.nl         */
+/*   Created: 2019/08/13 17:13:29 by aholster       #+#    #+#                */
+/*   Updated: 2019/08/16 17:36:28 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-int		ft_numlst_prefix(t_numlst *dec_lst, unsigned short count)
+int		ft_numlst_minsize(t_numlst *source, const t_numlst *target)
 {
-	unsigned short	added;
-	t_numlst		*new;
+	size_t	srclen;
+	size_t	tarlen;
 
-	added = 0;
-	while (dec_lst->prev != NULL)
-		dec_lst = dec_lst->prev;
-	while (added < count)
+	srclen = ft_numlst_fwlen(source);
+	tarlen = ft_numlst_fwlen(target);
+	if (tarlen > srclen)
 	{
-		new = ft_numlst_newnode();
-		if (new == NULL)
+		if (ft_numlst_postfix(source, tarlen - srclen) == 0)
 			return (-1);
-		new->next = dec_lst;
-		dec_lst->prev = new;
-		dec_lst = new;
-		added++;
+		srclen += tarlen - srclen;
+	}
+	srclen = ft_numlst_bwlen(source);
+	tarlen = ft_numlst_bwlen(target);
+	if (tarlen > srclen)
+	{
+		if (ft_numlst_prefix(source, tarlen - srclen) == 0)
+			return (-1);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 17:50:52 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/12 13:53:13 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/13 16:04:40 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static unsigned long long	ft_llurev(unsigned long long num)
 
 char						*ft_custom_ld_to_text(long double input)
 {
-	t_float			num;
-	unsigned short	exponent;
-	t_numlst		*lst;
-	char			*str;
+	t_float				num;
+	unsigned short		exponent;
+	t_numlst			*lst;
+	char				*str;
 
 	num.ld = input;
 
