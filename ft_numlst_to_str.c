@@ -6,16 +6,16 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 21:33:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/12 13:18:50 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/20 18:14:58 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-int				ft_numlst_to_str(char **str, t_numlst *lst)
+int				ft_numlst_to_str(char **str, const t_numlst *lst)
 {
-	size_t		len;
-	t_numlst	*traveler;
+	size_t			len;
+	const t_numlst	*traveler;
 
 	len = 0;
 	while (lst->prev != NULL)

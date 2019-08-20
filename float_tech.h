@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/16 17:36:56 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/20 20:29:42 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>
 # include <float.h>
 
-# include "libft.h"
+# include "./libft/libft.h"
 
 typedef union			u_float
 {
@@ -42,7 +42,7 @@ typedef	struct			s_numlst
 void					longdouble_analyse(long double input);
 char					*ft_custom_ld_to_text(long double input);
 
-int						ft_numlst_to_str(char **str, t_numlst *lst);
+int						ft_numlst_to_str(char **str, const t_numlst *lst);
 
 void					ft_numlst_del(t_numlst **alst);
 size_t					ft_numlst_fwlen(const t_numlst *dec_lst);
@@ -63,5 +63,6 @@ int						ft_numlst_up_magni(t_numlst **ret, const t_numlst *source,\
 int						ft_lst_math_add(t_numlst *source, t_numlst *addition);
 int						ft_lst_math_mul(t_numlst **source,\
 						unsigned short multiplier);
+int						ft_lst_math_halve(t_numlst **source);
 
 #endif

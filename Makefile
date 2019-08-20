@@ -6,7 +6,7 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/08/16 18:28:19 by aholster      ########   odam.nl          #
+#    Updated: 2019/08/20 20:10:26 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,10 @@ DATE := $(shell date)
 
 SOURCE := custom_ld_to_text numlst_del numlst_to_str\
  numlst_newnode  numlst_fwlen numlst_bwlen numlst_postfix numlst_prefix\
- lst_math_div lst_math_mul lst_math_add numlst_init numlst_minsize\
+ lst_math_halve lst_math_mul lst_math_add numlst_init numlst_minsize\
  numlst_up_magni numlst_copy
 
-FILEC := $(SOURCE:%=./ft_%.c) main.c longdouble_analyse.c
+FILEC := $(SOURCE:%=./ft_%.c) main.c
 
 HEAD := float_tech.h
 
@@ -25,7 +25,7 @@ NAME := float_tech
 
 NORM := norminette $(FILEC) $(HEAD) | grep -e "Error"  -e "Warning" -B 1
 
-CC := gcc -Wall -Werror -Wextra -g -I ./libft/ -L ./libft/ -lft
+CC := gcc -Wall -Werror -Wextra -g -L ./libft/ -lft
 
 all: $(NAME)
 
