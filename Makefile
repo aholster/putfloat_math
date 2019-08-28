@@ -6,7 +6,7 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/08/20 20:10:26 by aholster      ########   odam.nl          #
+#    Updated: 2019/08/28 18:27:33 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ DATE := $(shell date)
 SOURCE := custom_ld_to_text numlst_del numlst_to_str\
  numlst_newnode  numlst_fwlen numlst_bwlen numlst_postfix numlst_prefix\
  lst_math_halve lst_math_mul lst_math_add numlst_init numlst_minsize\
- numlst_up_magni numlst_copy
+ numlst_up_magni numlst_copy mantissa_to_numlst
 
-FILEC := $(SOURCE:%=./ft_%.c) main.c
+FILEC := $(SOURCE:%=./ft_%.c) longdouble_analyse.c
 
 HEAD := float_tech.h
 

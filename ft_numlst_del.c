@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 21:34:18 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/12 12:26:45 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/28 18:18:30 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void		ft_numlst_del(t_numlst **alst)
 			trail = iterator;
 			iterator = iterator->prev;
 			free(trail->mem);
+			trail->mem = NULL;
 			trail->mem_size = 0;
 			free(trail);
 		}
@@ -34,6 +35,7 @@ void		ft_numlst_del(t_numlst **alst)
 			trail = iterator;
 			iterator = iterator->next;
 			free(trail->mem);
+			trail->mem = NULL;
 			trail->mem_size = 0;
 			free(trail);
 		}
