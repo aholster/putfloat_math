@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/28 20:42:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/20 20:29:38 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/28 16:33:57 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	carryover_division(t_numlst *cur, size_t index, char *txt)
 		txt = cur->mem;
 		index = 0;
 	}
-	index++;
+	else
+		index++;
 	if (txt[index] == '.')
 		index++;
 	txt[index] = txt[index] + 5;
@@ -42,9 +43,9 @@ static int	struct_halve(t_numlst *trav)
 		while (index != 0)
 		{
 			index--;
-			if (txt[index] == '.')
+			if (txt[index] == '.' || txt[index] == '0')
 				continue ;
-			else if (((txt[index] - '0') ^ 1) == 1)
+			else if (((txt[index] - '0') & 1) == 1)
 			{
 				txt[index] = ((txt[index] - '1') / 2) + '0';
 				if (carryover_division(trav, index, txt) == -1)
@@ -70,5 +71,5 @@ int			ft_lst_math_halve(t_numlst **source)
 		ft_numlst_del(source);
 		return (-1);
 	}
-	return (-1);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 19:00:39 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/16 18:49:23 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/28 14:44:58 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ static int	ft_mul_structs(t_numlst *source, char mult)
 static int	ft_create_temp(t_numlst **temp, t_numlst *src, unsigned char mag)
 {
 	if (mag != 1)
+	{
 		if (ft_numlst_up_magni(temp, src, mag) == -1)
 			return (-1);
+	}
 	else
 	{
 		*temp = ft_numlst_copy(src);

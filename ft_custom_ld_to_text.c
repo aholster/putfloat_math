@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 17:50:52 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/13 16:04:40 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/28 16:28:13 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ printf("mantissa reverse as num is %llu\n", numer);
 		return ("float is non-math-y");
 	else
 	{
-		lst = ft_numlst_init();
-		if (lst == NULL)
+//		lst = ft_mantissa_to_numlst(numer);
+//		if (lst == NULL)
 			return (NULL);
 		/*
 		** insert math functions here
 		*/
-	//		str = NULL;
+
 		if (ft_numlst_to_str(&str, lst) == -1)
 			return (NULL);
 		ft_numlst_del(&lst);

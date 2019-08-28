@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 17:20:38 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/20 18:15:15 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/28 16:12:55 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,23 @@ int		main(int argc, char **argv)
 //	ft_numlst_prefix(addant, 4);
 //	addant->prev->prev->mem[0] = '9';
 	addant->mem[0] = '9';
-	printf("returned %d\n", ft_lst_math_add(source, addant));
-	
+	printf("add returned %d\n", ft_lst_math_add(source, addant));
 	ft_numlst_del(&addant);
 	if (ft_numlst_to_str(&str, source) == -1)
 		return (-1);
 	printf("text:%s\n", str);
 
 	printf("mult returned: %d\n", ft_lst_math_mul(&source, 65535));
+	free(str);
+	if (ft_numlst_to_str(&str, source) == -1)
+		return (-1);
+
+	printf("halve returned: %d\n", ft_lst_math_halve(&source));
+	free(str);
+	if (ft_numlst_to_str(&str, source) == -1)
+		return (-1);
+
+	printf("halve returned: %d\n", ft_lst_math_halve(&source));
 	free(str);
 	if (ft_numlst_to_str(&str, source) == -1)
 		return (-1);
