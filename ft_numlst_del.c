@@ -6,11 +6,26 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 21:34:18 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/28 18:18:30 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/28 19:40:19 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
+
+static void	ft_numlst_del_bw(t_numlst *lst)
+{
+	t_numlst	*trail;
+
+	while (lst != NULL)
+	{
+		trail = lst;
+		lst = lst->prev;
+		free(trail->mem);
+		trail->mem = NULL;
+		trail->mem_size = 0;
+		free(trail);
+	}
+}
 
 void		ft_numlst_del(t_numlst **alst)
 {
@@ -19,16 +34,7 @@ void		ft_numlst_del(t_numlst **alst)
 
 	if (alst != NULL)
 	{
-		iterator = (*alst)->prev;
-		while (iterator != NULL)
-		{
-			trail = iterator;
-			iterator = iterator->prev;
-			free(trail->mem);
-			trail->mem = NULL;
-			trail->mem_size = 0;
-			free(trail);
-		}
+		ft_numlst_del_bw((*alst)->prev);
 		iterator = *alst;
 		while (iterator != NULL)
 		{

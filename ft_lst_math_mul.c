@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 19:00:39 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/28 14:44:58 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/28 20:10:16 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static int	ft_create_temp(t_numlst **temp, t_numlst *src, unsigned char mag)
 {
 	if (mag != 1)
 	{
-		if (ft_numlst_up_magni(temp, src, mag) == -1)
+		*temp = ft_numlst_up_magni(src, mag);
+		if (*temp == NULL)
 			return (-1);
 	}
 	else
@@ -80,7 +81,7 @@ static int	ft_create_temp(t_numlst **temp, t_numlst *src, unsigned char mag)
 	return (1);
 }
 
-int			ft_lst_math_mul(t_numlst **source, unsigned short multiplier)
+int			ft_lst_math_mul(t_numlst **source, unsigned short multiply)
 {
 	char			mult;
 	unsigned char	magnitude;
@@ -91,9 +92,9 @@ int			ft_lst_math_mul(t_numlst **source, unsigned short multiplier)
 	product = ft_numlst_init();
 	if (product == NULL)
 		return (-1);
-	while (multiplier != 0)
+	while (multiply != 0)
 	{
-		mult = multiplier % 10;
+		mult = multiply % 10;
 		if (mult != 0)
 		{
 			if (ft_create_temp(&temporary, *source, magnitude) == -1)
@@ -105,7 +106,7 @@ int			ft_lst_math_mul(t_numlst **source, unsigned short multiplier)
 			ft_numlst_del(&temporary);
 		}
 		magnitude++;
-		multiplier /= 10;
+		multiply /= 10;
 	}
 	ft_numlst_del(source);
 	*source = product;

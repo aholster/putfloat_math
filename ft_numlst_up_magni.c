@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/13 15:24:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/16 18:09:48 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/28 20:11:49 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static int	ft_numlst_magni(t_numlst *product, const t_numlst *source,\
 		{
 			if (txt[index] != '.' && txt[index] != '0')
 			{
-				if (navigate_to_magni(product, txt[index], index, magni - 1) == -1)
+				if (navigate_to_magni(product, txt[index], index,\
+									magni - 1) == -1)
 					return (-1);
 			}
 			index++;
@@ -68,7 +69,7 @@ static int	ft_numlst_magni(t_numlst *product, const t_numlst *source,\
 	return (1);
 }
 
-int			ft_numlst_up_magni(t_numlst **ret, const t_numlst *source,\
+t_numlst	*ft_numlst_up_magni(const t_numlst *source,\
 			unsigned char magni)
 {
 	t_numlst		*product;
@@ -77,11 +78,11 @@ int			ft_numlst_up_magni(t_numlst **ret, const t_numlst *source,\
 
 	product = ft_numlst_init();
 	if (product == NULL)
-		return (-1);
+		return (NULL);
 	if (ft_numlst_minsize(product, source) == -1)
 	{
 		ft_numlst_del(&product);
-		return (-1);
+		return (NULL);
 	}
 	src_trav = source;
 	prod_trav = product;
@@ -93,8 +94,7 @@ int			ft_numlst_up_magni(t_numlst **ret, const t_numlst *source,\
 	if (ft_numlst_magni(prod_trav, src_trav, magni) == -1)
 	{
 		ft_numlst_del(&product);
-		return (-1);
+		return (NULL);
 	}
-	*ret = product;
-	return (1);
+	return (product);
 }
