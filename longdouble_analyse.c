@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:45:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/28 19:50:29 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/29 14:37:50 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	put_annotation(unsigned short mexponent, long double input)
 	mexponent, mexponent - 16383);
 	floatret = ft_custom_ld_to_text(input);
 	printf(" Our Float Returns:\t%s\n", floatret);
-	printf(" Norm Float:\t%Lf\n", input);
+//	printf(" Norm Float:\t%Lf\n", input);
 	printf("\n");
 }
 
@@ -79,10 +79,10 @@ int			main(void)
 	// num = 1.75;
 	// longdouble_analyse(num);
 
-	num = LDBL_MAX;
-	longdouble_analyse(num);
-	// num = LDBL_MIN;
+	// num = LDBL_MAX;
 	// longdouble_analyse(num);
+	num = LDBL_MIN;
+	longdouble_analyse(num);
 
 	// num = 1.5;
 	// longdouble_analyse(num);

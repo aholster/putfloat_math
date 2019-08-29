@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/28 20:10:38 by aholster      ########   odam.nl         */
+/*   Updated: 2019/08/29 14:18:12 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int					ft_numlst_prefix(t_numlst *dec_lst, unsigned short count);
 int					ft_numlst_postfix(t_numlst *dec_lst, unsigned short count);
 int					ft_numlst_minsize(t_numlst *source, const t_numlst *target);
 t_numlst			*ft_numlst_copy(const t_numlst *src);
+int					ft_numlst_inline_copy(const t_numlst *source, t_numlst *lst);
 
 t_numlst			*ft_mantissa_to_numlst(unsigned long long mantissa);
 t_numlst			*ft_numlst_up_magni(const t_numlst *source,\
