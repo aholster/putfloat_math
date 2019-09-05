@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:45:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/05 11:25:02 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 16:16:20 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static void	put_annotation(unsigned short mexponent, long double input)
 	char	*floatret;
 	int		lenhold;
 	int		ruler;
+	int		precision;
+	size_t	size;
+	int		status;
 //	char	*ourfloat;
 //	char	*printfloat;
 
@@ -25,10 +28,11 @@ static void	put_annotation(unsigned short mexponent, long double input)
 	printf(" Float:\t%Le\n", input);
 	printf(" Raw exponent: %hu, Bias adjusted exponent: %d\n",\
 	mexponent, mexponent - 16383);
-	floatret = ft_custom_ld_to_text(input);
-	free(floatret);
-	printf(" Our Float Returns:\t%s%n\n", floatret, &ruler);
-	printf(" Norm Float:\t%Lf%n\n", input, &lenhold);
+	precision = 10;
+	status = ft_custom_ld_to_text(input, precision, &floatret, &size);
+	printf("return:%d, size: %zu\n", status, size);
+	printf(" Our Float:\t%s%n\n", floatret, &ruler);
+	printf(" Norm Float:\t%.*Lf%n\n", precision, input, &lenhold);
 	// if (lenhold < ruler)
 	// {
 	// 	printf("parameters for adjustment met!\n");
@@ -38,6 +42,7 @@ static void	put_annotation(unsigned short mexponent, long double input)
 //	asprintf(&printfloat, "Float:\t%Lf\n", input);
 //	printf("string comparison of the floats returns: %d\n", ft_strcmp(ourfloat, printfloat));
 	printf("\n");
+	free(floatret);
 }
 
 void		longdouble_analyse(long double input)

@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/05 12:00:55 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 16:07:45 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ typedef	struct		s_numlst
 }					t_numlst;
 
 void				longdouble_analyse(long double input);
-char				*ft_custom_ld_to_text(long double input);
+int					ft_custom_ld_to_text(const long double input,\
+					const unsigned int precision, char **amem, size_t *asize);
 
-int					ft_numlst_to_str(char **str, const t_numlst *lst);
+int					ft_numlst_to_str(const t_numlst *lst,\
+					const unsigned int precision, char **str, size_t *asize);
 
 void				ft_numlst_del(t_numlst **alst);
 size_t				ft_numlst_fwlen(const t_numlst *dec_lst);

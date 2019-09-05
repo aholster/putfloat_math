@@ -6,38 +6,95 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 21:33:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/29 16:10:43 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 16:23:22 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-int				ft_numlst_to_str(char **mem, const t_numlst *lst)
+static size_t	leng_calc(const t_numlst *lst, const unsigned prec)
 {
-	size_t			len;
-	const t_numlst	*traveler;
+	size_t			leng;
+	size_t			from_dec;
 
-	len = 0;
-	while (lst->prev != NULL)
-		lst = lst->prev;
-	traveler = lst;
-	while (traveler != NULL)
+	leng = 0;
+	while (lst->mem_size != 3)
 	{
-		len += traveler->mem_size;
-		traveler = traveler->next;
-	}
-//	printf("proceeding to malloc: %zu bytes\n", len + 1);
-	*mem = (char *)malloc(sizeof(char) * len + 1);
-	if (*mem == NULL)
-		return (-1);
-	(*mem)[len] = '\0';
-	len = 0;
-	while (lst != NULL)
-	{
-		ft_memcpy((*mem) + len, lst->mem, lst->mem_size);
-		len += lst->mem_size;
+		leng += lst->mem_size;
 		lst = lst->next;
 	}
-//	printf("float internal text:|%s| %zu characters\n", *mem, len);
+	leng += 3;
+	lst = lst->next;
+	from_dec = 0;
+	while (lst != NULL && from_dec < prec)
+	{
+		if (from_dec + lst->mem_size > prec)
+			from_dec += prec - from_dec;
+		else
+			from_dec += lst->mem_size;
+		lst = lst->next;
+	}
+	leng += from_dec;
+	if (from_dec < prec)
+		leng += prec - from_dec;
+//	printf("end of list is %zu characters from 0.0, prec %u, lst:%p\n", from_dec, prec, lst);
+	return (leng);
+}
+
+static size_t	copy_into_str(char *mem, const t_numlst *lst,\
+							const size_t index, const size_t size)
+{
+	size_t			len;
+
+	ft_memcpy(mem, (lst->mem) + index, lst->mem_size - index);
+	len = lst->mem_size - index;
+	lst = lst->next;
+	while (lst != NULL && len < size)
+	{
+		if (size - len < lst->mem_size)
+		{
+			ft_memcpy(mem + len, lst->mem, size - len);
+			len += size - len;
+		}
+		else
+		{
+			ft_memcpy(mem + len, lst->mem, lst->mem_size);
+			len += lst->mem_size;
+		}
+		lst = lst->next;
+	}
+	if (len < size)
+	{
+		ft_memset(mem + len, '0', size - len);
+		len += size - len;
+	}
+	return (len);
+}
+
+int				ft_numlst_to_str(const t_numlst *lst,\
+				const unsigned int precision, char **amem, size_t *asize)
+{
+	size_t			index;
+	size_t			leng;
+
+	while (lst->prev != NULL)
+		lst = lst->prev;
+	index = 0;
+	while (lst->mem_size != 3 && lst->mem[index] == '0')
+	{
+		index++;
+		if (lst->mem[index] == '\0')
+		{
+			index = 0;
+			lst = lst->next;
+		}
+	}
+	leng = leng_calc(lst, precision) - index;
+//	printf("proceeding to malloc: %zu bytes\n", leng);
+	*amem = (char *)malloc(sizeof(char) * leng);
+	if (*amem == NULL)
+		return (-1);
+	*asize = copy_into_str(*amem, lst, index, leng);
+//	printf("float internal text:|%s| %zu characters\n", *amem, *asize);
 	return (1);
 }
