@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/28 18:10:51 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/28 18:16:43 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 12:06:23 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static unsigned long long	ft_llurev(unsigned long long numa)
 	return (reverse_num);
 }
 
-static int					ft_mant_to_lst(t_numlst *lstrav, unsigned long long mantissa)
+static int					ft_mant_to_lst(t_numlst *lstrav,\
+							unsigned long long mantissa)
 {
 	size_t		index;
 
@@ -72,7 +73,8 @@ static void					cleanup_lst(t_numlst *deleter)
 	}
 }
 
-static int					ft_mantissa_div(t_numlst **lst, unsigned long long mantissa)
+static int					ft_mantissa_div(t_numlst **lst,\
+							unsigned long long mantissa)
 {
 	size_t		count;
 

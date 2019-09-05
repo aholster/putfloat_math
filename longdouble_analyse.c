@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:45:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/05 10:39:59 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 11:25:02 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static void	put_annotation(unsigned short mexponent, long double input)
 	free(floatret);
 	printf(" Our Float Returns:\t%s%n\n", floatret, &ruler);
 	printf(" Norm Float:\t%Lf%n\n", input, &lenhold);
-	if (lenhold < ruler)
-	{
-		printf("parameters for adjustment met!\n");
-		printf(" norm float adjusted:\t%.*Lf\n", (int)ft_strlen(floatret) ,input);
-	}
+	// if (lenhold < ruler)
+	// {
+	// 	printf("parameters for adjustment met!\n");
+	// 	printf(" norm float adjusted:\t%.*Lf\n", (int)ft_strlen(floatret) ,input);
+	// }
 //	asprintf(&ourfloat ,"Float:\t%s\n", floatret);
 //	asprintf(&printfloat, "Float:\t%Lf\n", input);
 //	printf("string comparison of the floats returns: %d\n", ft_strcmp(ourfloat, printfloat));

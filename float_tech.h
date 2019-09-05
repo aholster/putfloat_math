@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/05 04:51:47 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 12:00:55 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef union		u_float
 	long long		llu;
 }					t_float;
 
-# define LSTBUF_SIZE 256
+# define LSTBUF_SIZE 8
 
 /*
 **	LSTBUF_SIZE DOES NOT SUPPORT THE VALUE OF 3, OR smaller than 1
@@ -58,8 +58,6 @@ int					ft_numlst_inline_copy(const t_numlst *source,\
 					t_numlst *dst);
 
 t_numlst			*ft_mantissa_to_numlst(unsigned long long mantissa);
-// t_numlst			*ft_numlst_up_magni(const t_numlst *source,\
-// 					const unsigned char magni);
 int					ft_numlst_up_magni(const t_numlst *source, t_numlst *dst,\
 					unsigned char mag);
 

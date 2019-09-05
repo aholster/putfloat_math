@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/29 14:16:02 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/05 09:08:05 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 11:00:36 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	numlst_copy_backward(const t_numlst *travsrc, t_numlst *travdst)
 	while (travdst->prev != NULL)
 	{
 		travdst = travdst->prev;
-		ft_bzero(travdst->mem, travdst->mem_size);
+		ft_memset(travdst->mem, '0', travdst->mem_size);
 	}
 	return (1);
 }
@@ -44,7 +44,7 @@ static int	numlst_copy_forward(const t_numlst *travsrc, t_numlst *travdst)
 	}
 	while (travdst != NULL)
 	{
-		ft_bzero(travdst->mem, travdst->mem_size);
+		ft_memset(travdst->mem, '0', travdst->mem_size);
 		travdst = travdst->next;
 	}
 	return (1);
