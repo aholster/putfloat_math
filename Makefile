@@ -6,7 +6,7 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/08/29 14:25:09 by aholster      ########   odam.nl          #
+#    Updated: 2019/08/30 17:37:54 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ DATE := $(shell date)
 SOURCE := custom_ld_to_text numlst_del numlst_to_str\
  numlst_newnode  numlst_fwlen numlst_bwlen numlst_postfix numlst_prefix\
  lst_math_halve lst_math_mul lst_math_add numlst_init numlst_minsize\
- numlst_up_magni numlst_copy mantissa_to_numlst numlst_inline_copy
+ numlst_up_magni mantissa_to_numlst numlst_inline_copy
 
 FILEC := $(SOURCE:%=./ft_%.c) longdouble_analyse.c
 
@@ -39,14 +39,14 @@ $(NAME):
 	@echo "\033[0;32m$(NAME) successfully assembled!\033[0;00m\n"
 
 clean:
-#	@make clean -C ./libft/
+	@make clean -C ./libft/
 	@echo "\033[0;33mInitializing Summary Deletions...\033[0;00m"
 	@find "./" -type f \( -name '*~' -o -name '\#*\#' -o -name '.DS_Store' \)\
 	 -exec rm -rfv {} \;
 	@echo "\033[0;31m	Executed!\033[0;00m\n"
 
 fclean: clean
-#	@make fclean -C ./libft/
+	@make fclean -C ./libft/
 	@rm -rf $(NAME)
 	@echo "\033[0;31mObituary of $(NAME): Deceased on $(shell date).\
 	\033[0;00m\n"

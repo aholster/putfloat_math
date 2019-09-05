@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/29 14:18:12 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 04:51:47 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef union		u_float
 	long long		llu;
 }					t_float;
 
-# define LSTBUF_SIZE 1
+# define LSTBUF_SIZE 256
 
 /*
 **	LSTBUF_SIZE DOES NOT SUPPORT THE VALUE OF 3, OR smaller than 1
@@ -54,15 +54,17 @@ t_numlst			*ft_numlst_init(void);
 int					ft_numlst_prefix(t_numlst *dec_lst, unsigned short count);
 int					ft_numlst_postfix(t_numlst *dec_lst, unsigned short count);
 int					ft_numlst_minsize(t_numlst *source, const t_numlst *target);
-t_numlst			*ft_numlst_copy(const t_numlst *src);
-int					ft_numlst_inline_copy(const t_numlst *source, t_numlst *lst);
+int					ft_numlst_inline_copy(const t_numlst *source,\
+					t_numlst *dst);
 
 t_numlst			*ft_mantissa_to_numlst(unsigned long long mantissa);
-t_numlst			*ft_numlst_up_magni(const t_numlst *source,\
-					unsigned char magni);
+// t_numlst			*ft_numlst_up_magni(const t_numlst *source,\
+// 					const unsigned char magni);
+int					ft_numlst_up_magni(const t_numlst *source, t_numlst *dst,\
+					unsigned char mag);
 
 int					ft_lst_math_add(t_numlst *source, t_numlst *addition);
-int					ft_lst_math_mul(t_numlst **source, unsigned short multiply);
+int					ft_lst_math_mul(t_numlst **source, const char *multiply);
 int					ft_lst_math_halve(t_numlst **source);
 
 #endif

@@ -6,57 +6,58 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/29 14:16:02 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/29 14:34:00 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 09:08:05 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-static int	numlst_copy_backward(const t_numlst *travsrc, t_numlst *travprod)
+static int	numlst_copy_backward(const t_numlst *travsrc, t_numlst *travdst)
 {
 	while (travsrc->prev != NULL)
 	{
-		if (travprod->prev == NULL)
-			if (ft_numlst_prefix(travprod, 1) == -1)
+		if (travdst->prev == NULL)
+			if (ft_numlst_prefix(travdst, 1) == -1)
 				return (-1);
 		travsrc = travsrc->prev;
-		travprod = travprod->prev;
-		ft_memcpy(travprod->mem, travsrc->mem, travsrc->mem_size);
+		travdst = travdst->prev;
+		ft_memcpy(travdst->mem, travsrc->mem, travsrc->mem_size);
 	}
-	if (travprod != NULL && travprod->prev != NULL)
-		while (travprod != NULL)
-		{
-			ft_bzero(travprod->mem, travprod->mem_size);
-			travprod = travprod->prev;
-		}
+	while (travdst->prev != NULL)
+	{
+		travdst = travdst->prev;
+		ft_bzero(travdst->mem, travdst->mem_size);
+	}
 	return (1);
 }
 
-static int	numlst_copy_forward(const t_numlst *travsrc, t_numlst *travprod)
+static int	numlst_copy_forward(const t_numlst *travsrc, t_numlst *travdst)
 {
 	while (travsrc != NULL)
 	{
-		ft_memcpy(travprod->mem, travsrc->mem, travsrc->mem_size);
-		if (travsrc->next != NULL && travprod->next == NULL)
-			if (ft_numlst_postfix(travprod, 1) == -1)
+		ft_memcpy(travdst->mem, travsrc->mem, travsrc->mem_size);
+		if (travsrc->next != NULL && travdst->next == NULL)
+			if (ft_numlst_postfix(travdst, 1) == -1)
 				return (-1);
 		travsrc = travsrc->next;
-		travprod = travprod->next;
+		travdst = travdst->next;
 	}
-	if (travprod != NULL && travprod->next != NULL)
-		while (travprod != NULL)
-		{
-			ft_bzero(travprod->mem, travprod->mem_size);
-			travprod = travprod->next;
-		}
+	while (travdst != NULL)
+	{
+		ft_bzero(travdst->mem, travdst->mem_size);
+		travdst = travdst->next;
+	}
 	return (1);
 }
 
-int			ft_numlst_inline_copy(const t_numlst *source, t_numlst *lst)
+int			ft_numlst_inline_copy(const t_numlst *source, t_numlst *dst)
 {
-	if (numlst_copy_backward(source, lst) == -1)
+	dst->mem[0] = '0';
+	dst->mem[1] = '.';
+	dst->mem[2] = '0';
+	if (numlst_copy_backward(source, dst) == -1)
 		return (-1);
-	if (numlst_copy_forward(source, lst) == -1)
+	if (numlst_copy_forward(source, dst) == -1)
 		return (-1);
 	return (1);
 }

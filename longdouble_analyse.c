@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:45:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/29 14:37:50 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 10:39:59 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 static void	put_annotation(unsigned short mexponent, long double input)
 {
 	char	*floatret;
+	int		lenhold;
+	int		ruler;
+//	char	*ourfloat;
+//	char	*printfloat;
 
 	printf("\n");
 	printf(" hex:\t%LA\n", input);
@@ -22,8 +26,17 @@ static void	put_annotation(unsigned short mexponent, long double input)
 	printf(" Raw exponent: %hu, Bias adjusted exponent: %d\n",\
 	mexponent, mexponent - 16383);
 	floatret = ft_custom_ld_to_text(input);
-	printf(" Our Float Returns:\t%s\n", floatret);
-//	printf(" Norm Float:\t%Lf\n", input);
+	free(floatret);
+	printf(" Our Float Returns:\t%s%n\n", floatret, &ruler);
+	printf(" Norm Float:\t%Lf%n\n", input, &lenhold);
+	if (lenhold < ruler)
+	{
+		printf("parameters for adjustment met!\n");
+		printf(" norm float adjusted:\t%.*Lf\n", (int)ft_strlen(floatret) ,input);
+	}
+//	asprintf(&ourfloat ,"Float:\t%s\n", floatret);
+//	asprintf(&printfloat, "Float:\t%Lf\n", input);
+//	printf("string comparison of the floats returns: %d\n", ft_strcmp(ourfloat, printfloat));
 	printf("\n");
 }
 
@@ -79,10 +92,10 @@ int			main(void)
 	// num = 1.75;
 	// longdouble_analyse(num);
 
-	// num = LDBL_MAX;
-	// longdouble_analyse(num);
-	num = LDBL_MIN;
+	num = LDBL_MAX;
 	longdouble_analyse(num);
+	// num = LDBL_MIN;
+	// longdouble_analyse(num);
 
 	// num = 1.5;
 	// longdouble_analyse(num);
@@ -94,7 +107,7 @@ int			main(void)
 	// num = 1.0 / 0.0;
 	// longdouble_analyse(num);
 
-	// num = 8.0;
+	// num = 256.0;
 	// longdouble_analyse(num);
 
 	// num = 0.125;

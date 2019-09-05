@@ -6,13 +6,13 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 19:00:39 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/29 14:26:08 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/05 07:59:26 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-static int	ft_mulcarry(t_numlst *cur, size_t index, char carry)
+static int	ft_mulcarry(t_numlst *cur, size_t index, unsigned char carry)
 {
 	char	*txt;
 
@@ -34,66 +34,84 @@ static int	ft_mulcarry(t_numlst *cur, size_t index, char carry)
 	return (ft_mulcarry(cur->prev, cur->prev->mem_size, carry));
 }
 
-static int	ft_mul_structs(t_numlst *source, char mult)
+static int	ft_mul_structs(t_numlst *nlst, const char mult)
 {
 	size_t			index;
 	size_t			size;
-	t_numlst		*srcstart;
 	unsigned char	cache;
 
-	srcstart = source;
-	while (srcstart->prev != NULL)
-		srcstart = srcstart->prev;
-	while (srcstart != NULL)
+	while (nlst->prev != NULL)
+		nlst = nlst->prev;
+	while (nlst != NULL)
 	{
-		size = srcstart->mem_size;
+		size = nlst->mem_size;
 		index = 0;
 		while (index < size)
 		{
-			if (srcstart->mem[index] != '.')
+			if (nlst->mem[index] != '.')
 			{
-				cache = (srcstart->mem[index] - '0') * mult;
-				srcstart->mem[index] = (cache % 10) + '0';
-				if (cache > 9 && ft_mulcarry(srcstart, index, cache / 10) == -1)
+				cache = (nlst->mem[index] - '0') * mult;
+				nlst->mem[index] = (cache % 10) + '0';
+				if (cache > 9 && ft_mulcarry(nlst, index, cache / 10) == -1)
 					return (-1);
 			}
 			index++;
 		}
-		srcstart = srcstart->next;
+		nlst = nlst->next;
 	}
 	return (1);
 }
 
-int			ft_lst_math_mul(t_numlst **source, unsigned short multiply)
+static int	mul_addition_cycler(const t_numlst *source, t_numlst *temp,\
+								t_numlst *product, const char *multiply)
 {
-	char			mult;
-	unsigned char	magnitude;
-	t_numlst		*product;
-	t_numlst		*temporary;
+	unsigned char	mult;
+	size_t			index;
+	size_t			len;
 
-	magnitude = 1;
-	product = ft_numlst_init();
-	if (product == NULL)
-		return (-1);
-	while (multiply != 0)
+	index = 0;
+	len = ft_strlen(multiply);
+	while (index < len)
 	{
-		mult = multiply % 10;
-		temporary = ft_numlst_init();
-		if (temporary == NULL)
-			return (-1);
+		mult = multiply[index] - '0';
 		if (mult != 0)
 		{
-			if (ft_numlst_inline_copy(*source, temporary) == -1)
+			if (len - index == 1 && ft_numlst_inline_copy(source, temp) == -1)
 				return (-1);
-			if (mult != 1 && ft_mul_structs(temporary, mult) == -1)
+			else if (len - index != 1 &&\
+					ft_numlst_up_magni(source, temp, len - index) == -1)
 				return (-1);
-			if (ft_lst_math_add(product, temporary) == -1)
+			if (mult != 1 && ft_mul_structs(temp, mult) == -1)
+				return (-1);
+			if (ft_lst_math_add(product, temp) == -1)
 				return (-1);
 		}
-		ft_numlst_del(&temporary);
-		magnitude++;
-		multiply /= 10;
+		index++;
 	}
+	return (1);
+}
+
+int			ft_lst_math_mul(t_numlst **source, const char *multiply)
+{
+	t_numlst		*product;
+	t_numlst		*temp;
+
+	product = ft_numlst_init();
+	temp = ft_numlst_init();
+	if (product == NULL || temp == NULL)
+	{
+		ft_numlst_del(&product);
+		ft_numlst_del(&temp);
+		return (-1);
+	}
+	if (mul_addition_cycler(*source, temp, product, multiply) == -1)
+	{
+		ft_numlst_del(&temp);
+		ft_numlst_del(&product);
+		ft_numlst_del(source);
+		return (-1);
+	}
+	ft_numlst_del(&temp);
 	ft_numlst_del(source);
 	*source = product;
 	return (1);
