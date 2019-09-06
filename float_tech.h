@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/06 07:15:32 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 08:11:23 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void				ft_numlst_del(t_numlst **alst);
 size_t				ft_numlst_fwlen(const t_numlst *dec_lst);
 size_t				ft_numlst_bwlen(const t_numlst *dec_lst);
 t_numlst			*ft_numlst_newnode(void);
-t_numlst			*ft_numlst_init(void);
+t_numlst			*ft_numlst_dec_init(void);
 
 int					ft_numlst_prefix(t_numlst *dec_lst, unsigned short count);
 int					ft_numlst_postfix(t_numlst *dec_lst, unsigned short count);

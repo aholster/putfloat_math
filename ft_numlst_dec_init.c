@@ -6,13 +6,13 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 11:58:30 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/12 18:17:59 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 08:11:27 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-t_numlst				*ft_numlst_init(void)
+t_numlst				*ft_numlst_dec_init(void)
 {
 	t_numlst	*node;
 

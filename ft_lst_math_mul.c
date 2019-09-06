@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 19:00:39 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/05 07:59:26 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 08:11:23 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ int			ft_lst_math_mul(t_numlst **source, const char *multiply)
 	t_numlst		*product;
 	t_numlst		*temp;
 
-	product = ft_numlst_init();
-	temp = ft_numlst_init();
+	product = ft_numlst_dec_init();
+	temp = ft_numlst_dec_init();
 	if (product == NULL || temp == NULL)
 	{
 		ft_numlst_del(&product);

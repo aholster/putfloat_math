@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:45:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/06 05:49:10 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 08:18:25 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,15 @@ int			main(void)
 
 	num = LDBL_MAX;
 	longdouble_analyse(num);
-	// num = LDBL_MIN;
-	// longdouble_analyse(num);
+	num = LDBL_MIN;
+	longdouble_analyse(num);
 
 	// num = 1.5;
 	// longdouble_analyse(num);
 
 	num = 0.0;
+	longdouble_analyse(num);
+	num = -8.0;
 	longdouble_analyse(num);
 	num = 0.0 / 0.0;
 	longdouble_analyse(num);

@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 17:50:52 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/06 07:14:23 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 08:22:52 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ static int	exponent_calculation(t_numlst **alst, short exponent)
 	else
 	{
 		if (posiponent_loop(alst, exponent) == -1)
-		{
-			ft_numlst_del(alst);
 			return (-1);
-		}
 	}
 	return (1);
 }
@@ -110,10 +107,7 @@ int			ft_custom_ld_to_text(const long double input,\
 			return (-1);
 		}
 		ft_numlst_del(&lst);
-		if (num.ld > 0)
-			(*amem)[0] = '+';
-		else
-			(*amem)[0] = '-';
+		(*amem)[0] = "-+"[(num.ld >= 0)];
 	}
 	return (1);
 }

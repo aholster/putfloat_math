@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/28 18:10:51 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/05 12:06:23 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 08:18:33 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,6 @@ static int					ft_mant_to_lst(t_numlst *lstrav,\
 	return (1);
 }
 
-static void					cleanup_lst(t_numlst *deleter)
-{
-	t_numlst	*trail;
-
-	deleter->prev = NULL;
-	deleter = deleter->prev;
-	while (deleter != NULL)
-	{
-		trail = deleter;
-		deleter = deleter->prev;
-		trail->prev = NULL;
-		trail->next = NULL;
-		free(trail->mem);
-		trail->mem = NULL;
-		trail->mem_size = 0;
-		free(trail);
-	}
-}
-
 static int					ft_mantissa_div(t_numlst **lst,\
 							unsigned long long mantissa)
 {
@@ -92,7 +73,6 @@ static int					ft_mantissa_div(t_numlst **lst,\
 		if (ft_lst_math_halve(lst) == -1)
 			return (-1);
 	}
-	cleanup_lst(*lst);
 	return (1);
 }
 
@@ -101,7 +81,7 @@ t_numlst					*ft_mantissa_to_numlst(unsigned long long mantissa)
 	t_numlst	*lst;
 
 	mantissa = ft_llurev(mantissa);
-	lst = ft_numlst_init();
+	lst = ft_numlst_dec_init();
 	if (lst == NULL)
 		return (NULL);
 	lst->mem[0] = (mantissa % 10) + '0';
