@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 17:50:52 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/06 05:50:16 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 07:14:23 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,16 @@ int			ft_custom_ld_to_text(const long double input,\
 			return (-1);
 		if (exponent_calculation(&lst, exponent) == -1)
 			return (-1);
-		if (ft_numlst_to_str(lst, precision, amem, asize) == -1)
+		if (ft_numlst_to_txt(lst, precision, amem, asize) == -1)
 		{
 			ft_numlst_del(&lst);
 			return (-1);
 		}
 		ft_numlst_del(&lst);
+		if (num.ld > 0)
+			(*amem)[0] = '+';
+		else
+			(*amem)[0] = '-';
 	}
 	return (1);
 }

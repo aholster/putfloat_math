@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_numlst_to_str.c                                 :+:    :+:            */
+/*   ft_numlst_to_txt.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 21:33:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/06 05:21:00 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 07:14:43 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static size_t	copy_into_str(char *mem, const t_numlst *lst,\
 	return (len);
 }
 
-int				ft_numlst_to_str(const t_numlst *lst,\
+int				ft_numlst_to_txt(const t_numlst *lst,\
 				const unsigned int precision, char **amem, size_t *asize)
 {
 	size_t			index;
@@ -88,11 +88,12 @@ int				ft_numlst_to_str(const t_numlst *lst,\
 		}
 	}
 	leng = leng_calc(lst, precision) - index;
-//	printf("proceeding to malloc: %zu bytes\n", leng);
-	*amem = (char *)malloc(sizeof(char) * leng);
+//	printf("proceeding to malloc: %zu bytes\n", leng + 1);
+	*amem = (char *)malloc(sizeof(char) * leng + 1);
 	if (*amem == NULL)
 		return (-1);
-	*asize = copy_into_str(*amem, lst, index, leng);
+	(*amem)[0] = 'X';
+	*asize = copy_into_str(*amem + 1, lst, index, leng) + 1;
 //	printf("float internal text:|%s| %zu characters\n", *amem, *asize);
 	return (1);
 }

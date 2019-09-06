@@ -6,13 +6,13 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/09/06 06:45:15 by aholster      ########   odam.nl          #
+#    Updated: 2019/09/06 07:14:53 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 DATE := $(shell date)
 
-SOURCE := custom_ld_to_text numlst_del numlst_to_str\
+SOURCE := custom_ld_to_text numlst_del numlst_to_txt\
  numlst_newnode  numlst_fwlen numlst_bwlen numlst_postfix numlst_prefix\
  lst_math_halve lst_math_mul lst_math_add numlst_init numlst_minsize\
  numlst_up_magni mantissa_to_numlst numlst_inline_copy
