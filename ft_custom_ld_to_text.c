@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 17:50:52 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/06 08:22:52 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 10:42:21 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int			ft_custom_ld_to_text(const long double input,\
 			return (-1);
 		}
 		ft_numlst_del(&lst);
-		(*amem)[0] = "-+"[(num.ld >= 0)];
 	}
 	return (1);
 }
