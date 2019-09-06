@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 21:33:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/05 16:23:22 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 05:21:00 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,10 @@ static size_t	copy_into_str(char *mem, const t_numlst *lst,\
 		{
 			ft_memcpy(mem + len, lst->mem, size - len);
 			len += size - len;
+			break ;
 		}
-		else
-		{
-			ft_memcpy(mem + len, lst->mem, lst->mem_size);
-			len += lst->mem_size;
-		}
+		ft_memcpy(mem + len, lst->mem, lst->mem_size);
+		len += lst->mem_size;
 		lst = lst->next;
 	}
 	if (len < size)

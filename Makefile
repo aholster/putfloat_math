@@ -6,7 +6,7 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/08/30 17:37:54 by aholster      ########   odam.nl          #
+#    Updated: 2019/09/06 05:14:30 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,26 +17,38 @@ SOURCE := custom_ld_to_text numlst_del numlst_to_str\
  lst_math_halve lst_math_mul lst_math_add numlst_init numlst_minsize\
  numlst_up_magni mantissa_to_numlst numlst_inline_copy
 
-FILEC := $(SOURCE:%=./ft_%.c) longdouble_analyse.c
+FILEC := $(SOURCE:%=./ft_%.c)
+
+OBJ := $(SOURCE:%=./ft_%.o)
 
 HEAD := float_tech.h
 
-NAME := float_tech
+NAME := float_tech.a
 
 NORM := norminette $(FILEC) $(HEAD) | grep -e "Error"  -e "Warning" -B 1
 
-CC := gcc -Wall -Werror -Wextra -g -L ./libft/ -lft
+GCCC := ${CC} -c
+CC := gcc -Wall -Werror -Wextra -L ./libft/ -lft
+AR := ar rcs
 
 all: $(NAME)
 
-assemble:
-	@$(CC) -o $(NAME) $(FILEC)
+assemble: $(OBJ)
+	@$(AR) $(NAME) $(OBJ)
+	@ranlib $(NAME)
+
+exec:
+	@$(CC) -o test $(FILEC) main.c
+	@echo "\033[0;32m test successfully assembled!\033[0;00m\n"
 
 $(NAME):
 	@make -C ./libft/
 	@echo "\033[0;33mStarting assembly of $(NAME)…\033[0;00m"
 	@time make assemble
 	@echo "\033[0;32m$(NAME) successfully assembled!\033[0;00m\n"
+
+%.o: %.c
+	@$(GCCC) -o $@ $<
 
 clean:
 	@make clean -C ./libft/

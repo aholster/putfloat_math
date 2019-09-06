@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/26 17:50:52 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/05 16:13:23 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 05:50:16 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,29 @@ static int	exponent_calculation(t_numlst **alst, short exponent)
 	return (1);
 }
 
+static int	exception_catch(t_float num, char **amem, size_t *asize)
+{
+	if (!(num.ld == num.ld))
+	{
+		*amem = (char *)ft_memdup("nan", 3);
+		*asize = 3;
+	}
+	else if ((num.byte[4] & 0x1) == 1)
+	{
+		*amem = (char *)ft_memdup("-inf", 4);
+		*asize = 4;
+	}
+	else
+	{
+		*amem = (char *)ft_memdup("+inf", 4);
+		*asize = 4;
+	}
+	if (*amem == NULL)
+		return (-1);
+	else
+		return (1);
+}
+
 int			ft_custom_ld_to_text(const long double input,\
 			const unsigned int precision, char **amem, size_t *asize)
 {
@@ -71,9 +94,9 @@ int			ft_custom_ld_to_text(const long double input,\
 	t_numlst			*lst;
 
 	num.ld = input;
-	exponent = (num.byte[4] & 0x7FFF) - 16383;//exponent bias adjustment
-	if (exponent == 16384)//generic abnormal number catcher
-		return (-42);
+	exponent = (num.byte[4] & 0x7FFF) - 16383;
+	if (exponent == 16384)
+		return (exception_catch(num, amem, asize));
 	else
 	{
 		lst = ft_mantissa_to_numlst(num.llu);

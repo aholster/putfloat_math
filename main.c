@@ -1,58 +1,132 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   longdouble_analyse.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/26 17:20:38 by aholster       #+#    #+#                */
-/*   Updated: 2019/08/28 16:12:55 by aholster      ########   odam.nl         */
+/*   Created: 2019/07/23 14:45:22 by aholster       #+#    #+#                */
+/*   Updated: 2019/09/05 16:16:20 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_tech.h"
 
-int		main(int argc, char **argv)
+static void	put_annotation(unsigned short mexponent, long double input)
 {
-	t_numlst	*addant;
-	t_numlst	*source;
-	char		*str;
+	char	*floatret;
+	int		lenhold;
+	int		ruler;
+	int		precision;
+	size_t	size;
+	int		status;
+//	char	*ourfloat;
+//	char	*printfloat;
 
-	(void)argv;
-	(void)argc;
+	printf("\n");
+	printf(" hex:\t%LA\n", input);
+	printf(" Float:\t%Le\n", input);
+	printf(" Raw exponent: %hu, Bias adjusted exponent: %d\n",\
+	mexponent, mexponent - 16383);
+	precision = 10;
+	status = ft_custom_ld_to_text(input, precision, &floatret, &size);
+	printf("return:%d, size: %zu\n", status, size);
+	printf(" Our Float:\t%s%n\n", floatret, &ruler);
+	printf(" Norm Float:\t%.*Lf%n\n", precision, input, &lenhold);
+	// if (lenhold < ruler)
+	// {
+	// 	printf("parameters for adjustment met!\n");
+	// 	printf(" norm float adjusted:\t%.*Lf\n", (int)ft_strlen(floatret) ,input);
+	// }
+//	asprintf(&ourfloat ,"Float:\t%s\n", floatret);
+//	asprintf(&printfloat, "Float:\t%Lf\n", input);
+//	printf("string comparison of the floats returns: %d\n", ft_strcmp(ourfloat, printfloat));
+	printf("\n");
+	free(floatret);
+}
 
-	source = ft_numlst_init();
-	if (source == NULL)
-		return (-1);
-	addant = ft_numlst_init();
-	if (addant == NULL)
-		return (-1);
-	source->mem[0] = '7';
-//	ft_numlst_prefix(addant, 4);
-//	addant->prev->prev->mem[0] = '9';
-	addant->mem[0] = '9';
-	printf("add returned %d\n", ft_lst_math_add(source, addant));
-	ft_numlst_del(&addant);
-	if (ft_numlst_to_str(&str, source) == -1)
-		return (-1);
-	printf("text:%s\n", str);
+void		longdouble_analyse(long double input)
+{
+	t_float			num;
+	size_t			index;
+	size_t			subdex;
+	unsigned short	mexponent;
 
-	printf("mult returned: %d\n", ft_lst_math_mul(&source, 65535));
-	free(str);
-	if (ft_numlst_to_str(&str, source) == -1)
-		return (-1);
+	num.ld = input;
+	index = 5;
+	mexponent = num.byte[4] & 0x7FFF;
+	printf("\033[0;34mStarting Float analysis...\033[0;00m\n");
+	printf("┌Sign Bit\n");
+	printf("|┌Exponent...  ┐ ┌'Integer' bit\n");
+	printf("||             | |┌Mantissa...%56s\n", "┐");
+	while (index > 0)
+	{
+		index--;
+		subdex = 16;
+		while (subdex > 0)
+		{
+			subdex--;
+			if (((num.byte[index] >> subdex) & 1) == 1)
+				write(1, "1", 1);
+			else
+				write(1, "0", 1);
+		}
+		write(1, " ", 1);
+	}
+	put_annotation(mexponent, input);
+}
 
-	printf("halve returned: %d\n", ft_lst_math_halve(&source));
-	free(str);
-	if (ft_numlst_to_str(&str, source) == -1)
-		return (-1);
+int			main(void)
+{
+	long double		num;
 
-	printf("halve returned: %d\n", ft_lst_math_halve(&source));
-	free(str);
-	if (ft_numlst_to_str(&str, source) == -1)
-		return (-1);
+	printf("%zu\n", sizeof(char *));
+	printf("sizeof t_float %zu\n", sizeof(t_float));
+	printf("sizeof long double %zu\n", sizeof(long double));
+	printf("sizeof t_mathlst %zu\n", sizeof(t_numlst));
 
-	ft_numlst_del(&source);
-	free(str);
+	// num = -1.0;
+	// longdouble_analyse(num);
+	// num = 1.0;
+	// longdouble_analyse(num);
+	// num = 0.5;
+	// longdouble_analyse(num);
+	// num = -0.5;
+	// longdouble_analyse(num);
+
+	// num = 1.75;
+	// longdouble_analyse(num);
+
+	num = LDBL_MAX;
+	longdouble_analyse(num);
+	// num = LDBL_MIN;
+	// longdouble_analyse(num);
+
+	// num = 1.5;
+	// longdouble_analyse(num);
+
+	// num = 0.0;
+	// longdouble_analyse(num);
+	// num = 0.0 / 0.0;
+	// longdouble_analyse(num);
+	// num = 1.0 / 0.0;
+	// longdouble_analyse(num);
+
+	// num = 256.0;
+	// longdouble_analyse(num);
+
+	// num = 0.125;
+	// longdouble_analyse(num);
+
+	// t_float	num2;
+	// num2.ld = 0.0;
+	// num2.byte[4] = 0x0FFE;
+	// num2.byte[3] = (1 << 15);
+	// longdouble_analyse(num2.ld);
+
+	// num2.ld = 0.0;
+	// num2.byte[4] = 0xFFFE;
+	// longdouble_analyse(num2.ld);
+	
 	return (0);
 }
