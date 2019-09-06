@@ -6,7 +6,7 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/09/06 05:14:30 by aholster      ########   odam.nl          #
+#    Updated: 2019/09/06 06:45:15 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ $(NAME):
 clean:
 	@make clean -C ./libft/
 	@echo "\033[0;33mInitializing Summary Deletions...\033[0;00m"
+	@rm -rf $(OBJ)
 	@find "./" -type f \( -name '*~' -o -name '\#*\#' -o -name '.DS_Store' \)\
 	 -exec rm -rfv {} \;
 	@echo "\033[0;31m	Executed!\033[0;00m\n"

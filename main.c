@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   longdouble_analyse.c                               :+:    :+:            */
+/*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:45:22 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/05 16:16:20 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 05:49:10 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	put_annotation(unsigned short mexponent, long double input)
 	precision = 10;
 	status = ft_custom_ld_to_text(input, precision, &floatret, &size);
 	printf("return:%d, size: %zu\n", status, size);
-	printf(" Our Float:\t%s%n\n", floatret, &ruler);
+	printf(" Our Float:\t|%.*s|%n\n", (int)size, floatret, &ruler);
 	printf(" Norm Float:\t%.*Lf%n\n", precision, input, &lenhold);
 	// if (lenhold < ruler)
 	// {
@@ -105,12 +105,14 @@ int			main(void)
 	// num = 1.5;
 	// longdouble_analyse(num);
 
-	// num = 0.0;
-	// longdouble_analyse(num);
-	// num = 0.0 / 0.0;
-	// longdouble_analyse(num);
-	// num = 1.0 / 0.0;
-	// longdouble_analyse(num);
+	num = 0.0;
+	longdouble_analyse(num);
+	num = 0.0 / 0.0;
+	longdouble_analyse(num);
+	num = 1.0 / 0.0;
+	longdouble_analyse(num);
+	num = -1.0 / 0.0;
+	longdouble_analyse(num);
 
 	// num = 256.0;
 	// longdouble_analyse(num);

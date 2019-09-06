@@ -6,18 +6,17 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/23 14:47:32 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/06 04:54:47 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/06 06:50:10 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FLOAT_TECH_H
 # define FLOAT_TECH_H
 
-# include <stdio.h>
-# include <float.h>
-
 # include "./libft/libft.h"
 
+# include <stdio.h>
+# include <float.h>
 typedef union		u_float
 {
 	long double		ld;
