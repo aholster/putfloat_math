@@ -6,7 +6,7 @@
 #    By: aholster <aholster@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/16 15:46:43 by aholster       #+#    #+#                 #
-#    Updated: 2019/09/06 08:12:09 by aholster      ########   odam.nl          #
+#    Updated: 2019/09/12 15:29:10 by aholster      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ NAME := float_tech.a
 NORM := norminette $(FILEC) $(HEAD) | grep -e "Error"  -e "Warning" -B 1
 
 GCCC := ${CC} -c
-CC := gcc -Wall -Werror -Wextra -L ./libft/ -lft
+CC := gcc -g -Wall -Werror -Wextra -L ./libft/ -lft
 AR := ar rcs
 
 all: $(NAME)
@@ -38,6 +38,7 @@ assemble: $(OBJ)
 	@ranlib $(NAME)
 
 exec:
+	@rm -f test
 	@$(CC) -o test $(FILEC) main.c
 	@echo "\033[0;32m test successfully assembled!\033[0;00m\n"
 
