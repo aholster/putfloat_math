@@ -6,7 +6,7 @@
 /*   By: aholster <aholster@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/28 18:10:51 by aholster       #+#    #+#                */
-/*   Updated: 2019/09/12 18:14:22 by aholster      ########   odam.nl         */
+/*   Updated: 2019/09/12 18:36:11 by aholster      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,14 @@ int							ft_mantissa_write(unsigned long long mantissa,\
 	while (mantissa != 0)
 	{
 		if ((mantissa & 1) == 1)
+		{
 			if (ft_lst_math_add(lst, *acur_mant_bit) == -1)
-				return (NULL);
+				return (-1);
+		}
 		if (ft_lst_math_halve(acur_mant_bit) == -1)
-			return (NULL);
+		{
+			return (-1);
+		}
 		mantissa >>= 1;
 	}
 	return (1);
@@ -61,7 +65,7 @@ t_numlst					*ft_mantissa_to_numlst(unsigned long long mantissa)
 		return (NULL);
 	}
 	cur_mant_bit->mem[0] = '1';
-	if (ft_mantissa_write(mantissa, lst, cur_mant_bit) == -1)
+	if (ft_mantissa_write(mantissa, lst, &cur_mant_bit) == -1)
 	{
 		ft_numlst_del(&lst);
 		ft_numlst_del(&cur_mant_bit);
